@@ -1,1 +1,222 @@
-<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Nuestros 14 meses ❤️</title> <style> body { margin: 0; padding: 10px; height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding-top: 70px; background: linear-gradient(135deg, #ff9a9e, #fad0c4); font-family: 'Arial', sans-serif; overflow: hidden; } .container { perspective: 1000px; width: 100%; display: flex; justify-content: center; padding: 0 12px; } .card { width: 85vw; height: 68vh; max-width: 380px; max-height: 500px; position: relative; transform-style: preserve-3d; transition: transform 1.2s; cursor: pointer; } .card.open { transform: rotateY(180deg); } .side { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; overflow: visible; box-shadow: 0 10px 25px rgba(0,0,0,0.3); } /* CORAZÓN RESPONSIVE */ .front { background: red; display: flex; justify-content: center; align-items: flex-start; padding-top: 85px; clip-path: path("M50% 90% L10% 50% A20% 20% 0 0 1 50% 25% A20% 20% 0 0 1 90% 50% Z"); animation: latido 1.2s infinite; } @keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } } .front h2 { color: white; text-align: center; font-size: 20px; padding: 10px; } /* PARTE INTERNA */ .back { display: flex; transform: rotateY(180deg); background: white; } .left, .right { width: 50%; box-sizing: border-box; } .left img { width: 100%; height: 100%; object-fit: cover; } .right { display: flex; justify-content: center; align-items: center; text-align: center; font-size: 16px; padding: 15px; color: #333; } /* Nombre animado */ .nombre { position: absolute; top: 20px; width: 100%; text-align: center; font-size: 22px; font-weight: bold; color: white; animation: fadeIn 2s ease-in-out; } @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } } /* Corazones flotando */ .heart { position: absolute; font-size: 20px; animation: floatUp linear forwards; } @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-700px) scale(1.5); opacity: 0; } } </style> </head> <body> <div class="nombre">Para: Mi preciosa ❤️</div> <audio id="music" src="music.mp3" loop></audio> <div class="container"> <div class="card" id="card" onclick="openCard()"> <div class="side front"> <h2>💖 Tócame 💖</h2> </div> <div class="side back"> <div class="left"> <img src="img/nosotros.jpg" alt="Nuestra foto"> </div> <div class="right"> <p> Hoy cumplimos 14 meses ❤️<br><br> Y sí… a veces se me olvida decírtelo 🙈<br> (pero nunca sentirlo, tranquila 😏)<br><br> Porque la verdad es que...<br> me tienes completamente enamorado 💕<br><br> Gracias por aguantarme,<br> quererme y hacerme tan feliz 🥹<br><br> Te amo muchísimo ❤️ </p> </div> </div> </div> </div> <script> let opened = false; function openCard() { if (opened) return; opened = true; const card = document.getElementById("card"); card.classList.add("open"); const music = document.getElementById("music"); music.play(); if (navigator.vibrate) { navigator.vibrate([200, 100, 200]); } for (let i = 0; i < 25; i++) { setTimeout(createHeart, i * 100); } } window.onload = () => { setTimeout(openCard, 1500); }; function createHeart() { const heart = document.createElement("div"); heart.classList.add("heart"); heart.innerHTML = "❤️"; heart.style.left = Math.random() * window.innerWidth + "px"; heart.style.top = "100%"; heart.style.fontSize = (Math.random() * 10 + 15) + "px"; heart.style.animationDuration = (Math.random() * 2 + 3) + "s"; document.body.appendChild(heart); setTimeout(() => { heart.remove(); }, 4000); } </script> </body> </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestros 14 meses ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 10px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* TEXTO */
+.nombre {
+    margin-top: 30px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+}
+
+/* CONTENEDOR */
+.container {
+    margin-top: 15px;
+    perspective: 1000px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 15px; /* 👈 evita cortes */
+}
+
+/* TARJETA */
+.card {
+    width: 85vw; /* 👈 más pequeña para móvil */
+    height: 65vh;
+    max-width: 380px;
+    max-height: 480px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1.2s;
+    cursor: pointer;
+}
+
+.card.open {
+    transform: rotateY(180deg);
+}
+
+.side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* ❤️ CORAZÓN */
+.front {
+    background: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    clip-path: path("M200 350 L20 180 A100 100 0 0 1 200 80 A100 100 0 0 1 380 180 Z");
+    animation: latido 1.2s infinite;
+
+    transform: scale(0.92); /* 👈 evita que se corte */
+}
+
+/* 💓 animación */
+@keyframes latido {
+    0%, 100% { transform: scale(0.92); }
+    50% { transform: scale(0.96); }
+}
+
+/* TEXTO CORAZÓN */
+.front h2 {
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+    transform: translateY(-60px); /* 👈 centrado perfecto */
+}
+
+/* INTERIOR */
+.back {
+    display: flex;
+    transform: rotateY(180deg);
+    background: white;
+}
+
+.left, .right {
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+    padding: 15px;
+    color: #333;
+}
+
+/* corazones flotando */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-700px) scale(1.5);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="nombre">Para Mi preciosa ❤️</div>
+
+<audio id="music" src="music.mp3" loop></audio>
+
+<div class="container">
+    <div class="card" id="card" onclick="openCard()">
+        
+        <div class="side front">
+            <h2>💖 Tócame 💖</h2>
+        </div>
+
+        <div class="side back">
+            <div class="left">
+                <img src="img/nosotros.jpg" alt="Nuestra foto">
+            </div>
+            <div class="right">
+                <p>
+                    Hoy cumplimos 14 meses ❤️<br><br>
+                    Y sí… a veces se me olvida decírtelo 🙈<br>
+                    (pero nunca sentirlo, tranquila 😏)<br><br>
+                    
+                    Porque la verdad es que...<br>
+                    me tienes completamente enamorado 💕<br><br>
+                    
+                    Gracias por aguantarme,<br>
+                    quererme y hacerme tan feliz 🥹<br><br>
+                    
+                    Te amo muchísimo ❤️
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+let opened = false;
+
+function openCard() {
+    if (opened) return;
+    opened = true;
+
+    const card = document.getElementById("card");
+    card.classList.add("open");
+
+    const music = document.getElementById("music");
+    music.play();
+
+    if (navigator.vibrate) {
+        navigator.vibrate([200, 100, 200]);
+    }
+
+    for (let i = 0; i < 25; i++) {
+        setTimeout(createHeart, i * 100);
+    }
+}
+
+window.onload = () => {
+    setTimeout(openCard, 1500);
+};
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = "100%";
+    heart.style.fontSize = (Math.random() * 10 + 15) + "px";
+    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 4000);
+}
+</script>
+
+</body>
+</html>
