@@ -23,13 +23,14 @@ body {
         width: 100%;
         display: flex;
         justify-content: center;
+		 padding: 0 10px;
     }
 
     .card {
-        width: 92vw;
-        height: 72vh;
-        max-width: 420px;
-        max-height: 520px;
+    width: 85vw;   /* 👈 antes 90–92 */
+    height: 70vh;
+    max-width: 380px;
+    max-height: 500px;
         position: relative;
         transform-style: preserve-3d;
         transition: transform 1.2s;
@@ -59,6 +60,7 @@ body {
         clip-path: path("M200 350 L20 180 A100 100 0 0 1 200 80 A100 100 0 0 1 380 180 Z");
         animation: latido 1.2s infinite;
 		padding-top: 85px;
+		transform: scale(0.95);
     }
 .front h2 {
     transform: translateY(0);
