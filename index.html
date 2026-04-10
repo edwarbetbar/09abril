@@ -58,6 +58,8 @@ body {
 /* LADOS */
 .side {
     position: absolute;
+    top: 0;      /* 👈 AÑADE ESTO */
+    left: 0;     /* 👈 AÑADE ESTO */
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
@@ -67,30 +69,43 @@ body {
 
 /* ❤️ CORAZÓN ORIGINAL (EL QUE FUNCIONABA) */
 .front {
-    background: red;
+    position: absolute; /* 👈 CLAVE */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
     display: flex;
     justify-content: center;
     align-items: center;
-    clip-path: path("M200 350 L20 180 A100 100 0 0 1 200 80 A100 100 0 0 1 380 180 Z");
-    animation: latido 1.2s infinite;
 
-    transform: scale(0.92); /* 👈 evita corte en móvil */
+    background: transparent;
+}
+
+.heart-img {
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    animation: latido 1.2s infinite;
 }
 
 /* 💓 animación */
 @keyframes latido {
-    0%, 100% { transform: scale(0.92); }
-    50% { transform: scale(0.96); }
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 /* TEXTO CORAZÓN */
 .front h2 {
+    position: relative;
+    z-index: 2;
     color: white;
-    font-size: 24px; /* 👈 también bajamos un poco */
+    font-size: 22px;
     font-family: 'Playfair Display', serif;
     font-style: italic;
     text-align: center;
-    transform: translateY(-35px);
+    transform: translateY(-20px);
 }
 
 /* INTERIOR */
@@ -146,9 +161,10 @@ body {
     <div class="card" id="card" onclick="openCard()">
         
         <!-- FRENTE -->
-        <div class="side front">
-            <h2>💖 Tócame 💖</h2>
-        </div>
+<div class="side front">
+    <img src="img/CORAZÓN.png" class="heart-img">
+    <h2>💖 Tócame 💖</h2>
+</div>
 
         <!-- INTERIOR -->
         <div class="side back">
